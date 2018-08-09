@@ -13,7 +13,7 @@ class StockEntry(BaseModel, db.Model):
     """
         Etablishment Table
     """
-    __tablename__ = 'user'
+    __tablename__ = 'stock_entry'
 
     provider = db.Column(db.String(120), nullable=False)
     amount_ht = db.Column(db.Float(), nullable=False)

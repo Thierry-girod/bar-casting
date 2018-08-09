@@ -7,7 +7,7 @@ class StockEntryProduct(BaseModel, db.Model):
     """
         Etablishment Table
     """
-    __tablename__ = 'user'
+    __tablename__ = 'stock_entry_product'
 
     quantity = db.Column(db.Integer(), nullable=False)
     amount_ht = db.Column(db.Float(), nullable=False)

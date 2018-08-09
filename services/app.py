@@ -19,8 +19,8 @@ def create_app(debug=False):
     # Configure database
     db.init_app(app)
 
-    migrate = Migrate(app, db)
-    from models.persitence import entity, etablishment, product, user
+    create_db_schema(app, db)
+
 
     # Blueprint
     app.register_blueprint(service_homepage)
@@ -29,3 +29,9 @@ def create_app(debug=False):
     CORS(app)
 
     return app
+
+def create_db_schema(app, db):
+    migrate = Migrate(app, db)
+    
+    from models.persitence import entity, etablishment, product, user
+    from models.persitence import stock_entry, stock_entry_product
