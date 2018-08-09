@@ -1,0 +1,79 @@
+.ConvoWhite {
+  width: 10.5px;
+  height: 8.9px;
+  object-fit: contain;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255,255,255);
+}
+
+.unread_msg {
+  width: 15px;
+  height: 15px;
+  background-color: #4abfe2;
+}
+
+.Mail {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+.SMS {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+.TeamOff {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+.CallIncoming {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+.caret {
+  width: 20px;
+  height: 10px;
+  object-fit: contain;
+}
+
+.CallOutgoing {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+.Received {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+}
+
+.Sent {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+}
+
+.Oval-3 {
+  width: 10px;
+  height: 10px;
+  background-color: #4abfe2;
+  border-radius: 1rem!important;
+}
+
+.fixed_height_nav{
+  height: 59px
+}
+
+.height-constrained {
+  height: calc(100vh - 59px);
+  overflow:hidden;
+}
