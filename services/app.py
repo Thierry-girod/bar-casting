@@ -7,7 +7,7 @@ from flask_migrate import Migrate
 
 from module.configuration import get_config
 from services.homepage.homepage import service_homepage
-# from services.login.login import login_service
+from services.products.products import service_products
 
 db = SQLAlchemy()
 
@@ -18,20 +18,24 @@ def create_app(debug=False):
 
     # Configure database
     db.init_app(app)
-
     create_db_schema(app, db)
 
 
     # Blueprint
-    app.register_blueprint(service_homepage)
-    # app.register_blueprint(convo_service)
+    register_blueprints(app)
 
     CORS(app)
 
     return app
 
+def register_blueprints(app):
+    app.register_blueprint(service_homepage)
+    app.register_blueprint(service_products)
+
 def create_db_schema(app, db):
     migrate = Migrate(app, db)
-    
+
+    # from models.persitence import entity
     from models.persitence import entity, etablishment, product, user
-    from models.persitence import stock_entry, stock_entry_product
+    # from models.persitence import stock_entry, stock_entry_product
+    # from models.persitence import recipe, recipe_product

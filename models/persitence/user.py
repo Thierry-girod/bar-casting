@@ -1,5 +1,7 @@
 from models.persitence import BaseModel
-from services.app import db
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 class User(BaseModel, db.Model):
     """
@@ -11,7 +13,6 @@ class User(BaseModel, db.Model):
     last_name = db.Column(db.String(60), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
-    name = db.Column(db.String(60), nullable=False)
 
 
     # Foreing key to Entity table

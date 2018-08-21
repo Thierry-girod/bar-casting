@@ -1,7 +1,8 @@
 import enum
 from models.persitence import BaseModel
-from services.app import db
+from flask_sqlalchemy import SQLAlchemy
 
+db = SQLAlchemy()
 class BillStatus(enum.Enum):
     to_pay = "0"
     payed = "1"
@@ -27,4 +28,4 @@ class StockEntry(BaseModel, db.Model):
 
 
     def __repr__(self):
-        return '<Etablishment: ID : {} - Name : {}>'.format(self.id, self.name)
+        return '<Stock Entry: ID : {} - Name : {}>'.format(self.id, self.name)

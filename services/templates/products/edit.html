@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block middle_pane %}
+<form method="POST" action="{{ url_for('products.save')}}">
+  <input type="hidden" name="etablishment_id" value="{{ etablishment_id }}" />
+  <div class="form-group row">
+    <div class="col-sm-4">Type</div>
+    <div class="col-sm-8">
+      <div class="form-check">
+        <input class="form-check-input" name="liquid" type="radio" id="liquid_type" value="1"/>
+        <label class="form-check-label" for="liquid_type">Liquid</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" name="liquid" type="radio" id="solid_type" value="0"/>
+        <label class="form-check-label" for="solid_type">Solid</label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="product_name">Name</label>
+    <input type="text" class="form-control" name="name" id="product_name" placeholder="Product name">
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-4">Type</div>
+    <div class="col-sm-8">
+      <div class="form-check">
+        <input class="form-check-input" name="type" type="radio" id="1_type" value="1"/>
+        <label class="form-check-label" for="liquid_type">1</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" name="type" type="radio" id="2_type" value="2"/>
+        <label class="form-check-label" for="solid_type">2</label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group _jsLiquidState" style="display:none">
+    <label for="product_name">Volume</label>
+    <input type="text" class="form-control" name="volume" id="product_name" placeholder="Product name">
+  </div>
+  <button class="btn btn-primary" type="submit">Add product</button>
+</form>
+
+<script type="text/javascript">
+  $(document).ready(function (){
+    bindLiquidType();
+  });
+
+  function bindLiquidType() {
+    $('#liquid_type').click(function () {
+      $('._jsLiquidState').show()
+    });
+    $('#solid_type').click(function () {
+      $('._jsLiquidState').hide()
+    });
+  }
+</script>
+{% endblock %}

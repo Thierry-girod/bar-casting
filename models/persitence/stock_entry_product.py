@@ -1,7 +1,8 @@
 import enum
 from models.persitence import BaseModel
-from services.app import db
+from flask_sqlalchemy import SQLAlchemy
 
+db = SQLAlchemy()
 
 class StockEntryProduct(BaseModel, db.Model):
     """
@@ -19,4 +20,8 @@ class StockEntryProduct(BaseModel, db.Model):
 
 
     def __repr__(self):
-        return '<Etablishment: ID : {} - Name : {}>'.format(self.id, self.name)
+        return '<Stock Entry Product: ID: {} - ID Stock: {} - Name : {}>'.format(
+            self.id,
+            self.stock_entry_id,
+            self.name
+        )

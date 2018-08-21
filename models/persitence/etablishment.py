@@ -1,5 +1,7 @@
 from models.persitence import BaseModel
-from services.app import db
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 class Etablishment(BaseModel, db.Model):
     """
