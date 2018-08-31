@@ -1,8 +1,6 @@
 import enum
-from models.persitence import BaseModel
-from flask_sqlalchemy import SQLAlchemy
+from models.persitence import BaseModel, db
 
-db = SQLAlchemy()
 class BillStatus(enum.Enum):
     to_pay = "0"
     payed = "1"

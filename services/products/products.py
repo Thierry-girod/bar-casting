@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, request
+from flask import Blueprint, render_template, redirect, request, url_for
 
 from module.configuration import get_config
 from models import product
@@ -9,12 +9,14 @@ conf = get_config()
 
 @service_products.route('/products/', methods=['GET'])
 def list_products():
-    return render_template('products/index.html')
+    # Retrieve list of product
+    list_of_product = product.find_by(etablishment_id=1)
+    return render_template('products/index.html', list_of_product=list_of_product)
 
 
 @service_products.route('/products/add', methods=['GET'])
 def new_product():
-    return render_template('products/edit.html', etablishment_id=1)
+    return render_template('products/edit.html', etablishment_id=1, values={})
 
 @service_products.route('/products/save', methods=['POST'])
 def save():
@@ -25,28 +27,35 @@ def save():
         return render_template(
             'products/edit.html',
             etablishment_id=1,
-            values=request.form
+            values=request.form,
+            field_errors=errors
         )
-    product.create_product(
+
+    # Create product if no error
+    product.create(
         etablishment_id=1,
         name=request.form.get('name'),
         type=request.form.get('type'),
-        volume=request.form.get('volume')
+        volume=request.form.get('volume'),
+        liquid=True if request.form.get('liquid') == "1" else False
     )
-    print(request.form.get('name'))
-    print(request.form.get('liquid'))
-    print(request.form.get('type'))
-    print(request.form.get('volume'))
-    return render_template('products/edit.html', etablishment_id=1)
+
+    # Redirect to the list of product
+    return redirect(url_for('products.list_products'))
 
 
 @service_products.route('/products/delete/<int:id>', methods=['GET'])
-def delete_product(id):
+def delete(id):
     # Check if product id belongs to etablishment
+    prod = product.find_by(etablishment_id=1, id=id)
+
+    if len(prod) == 0:
+        return redirect(url_for('products.list_products'))
 
     # Check if product still supposed to be in stock
 
     # Retrieve product and soft delete it
+    product.delete(id)
 
     # Redirect to list of product
     return redirect(url_for('products.list_products'))
@@ -54,12 +63,14 @@ def delete_product(id):
 
 def __check_form_valid():
     errors = set()
-    if not request.form.get('name', False):
+    if not request.form.get('name', False) or request.form.get('name') == '':
         errors.add('name')
     if not request.form.get('liquid', False):
         errors.add('liquid')
     if not request.form.get('type', False):
         errors.add('type')
-    if request.form.get('liquid') == "1" and not is_numeric(request.form.get('volume')):
+    if request.form.get('liquid') == "1" and not request.form.get('volume', '').isdigit():
         errors.add('volume')
+
+    # Return all errors
     return errors

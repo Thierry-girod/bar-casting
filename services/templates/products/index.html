@@ -67,30 +67,21 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">Name</th>
-      <th scope="col"></th>
       <th scope="col">Type</th>
       <th scope="col">Volume</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
+  {% for product in list_of_product %}
     <tr>
-      <td>1</td>
-      <td>Mark</td>
-      <td>1</td>
-      <td>@mdo</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.type.value }}</td>
+      <td>{{ product.volume }} cl</td>
+      <td><a href="{{ url_for('products.delete', id=product.id) }}"><i class="fa fa-trash fa-2x"></i></a></td>
+      <!-- <td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td> -->
     </tr>
-    <tr>
-      <td>2</td>
-      <td>2</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
+  {% endfor %}
   </tbody>
 </table>
 <a href="{{ url_for('products.new_product') }}" class="btn btn-primary btn-lg btn-block">Add a new product</a>

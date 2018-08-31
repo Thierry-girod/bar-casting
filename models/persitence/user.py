@@ -1,7 +1,4 @@
-from models.persitence import BaseModel
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from models.persitence import BaseModel, db
 
 class User(BaseModel, db.Model):
     """

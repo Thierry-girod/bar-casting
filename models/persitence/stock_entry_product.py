@@ -1,8 +1,5 @@
 import enum
-from models.persitence import BaseModel
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from models.persitence import BaseModel, db
 
 class StockEntryProduct(BaseModel, db.Model):
     """

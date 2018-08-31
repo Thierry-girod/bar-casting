@@ -1,8 +1,5 @@
 import enum
-from models.persitence import BaseModel
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from models.persitence import BaseModel, db
 
 class RecipeProduct(BaseModel, db.Model):
     """
@@ -22,3 +19,12 @@ class RecipeProduct(BaseModel, db.Model):
             self.id,
             self.name
         )
+
+    @classmethod
+    def delete_recipe(cls, recipe_id):
+        for recipe_product in db.session.query(RecipeProduct).filter(recipe_id==recipe_id):
+            RecipeProduct.delete(recipe_product.id)
+
+    @classmethod
+    def find_by(cls, *args, order_by='name', **kwargs):
+        return cls.query.filter_by(deleted_at=None, **kwargs).order_by(order_by).all()
