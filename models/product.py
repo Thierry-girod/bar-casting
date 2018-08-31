@@ -10,6 +10,14 @@ def find_by(etablishment_id, *args, order_by='name', **kwargs):
         **kwargs
     )
 
+def search(etablishment_id, name, type, liquid):
+    return Product.search(
+        etablishment_id=etablishment_id,
+        name=name,
+        type=type,
+        liquid=liquid
+    )
+
 def create(*args, **kwargs):
     product = Product(**kwargs)
     product.save()

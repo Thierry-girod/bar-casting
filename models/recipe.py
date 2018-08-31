@@ -10,6 +10,12 @@ def find_by(etablishment_id, *args, order_by='name', **kwargs):
         **kwargs
     )
 
+def search(etablishment_id, name):
+    return Recipe.search(
+        etablishment_id=etablishment_id, 
+        name=name
+    )
+
 def list_recipe_with_volume_and_nb_product(etablishment_id, order_by='name'):
     return Recipe.list_recipe_with_volume_and_nb_product(etablishment_id, order_by)
 

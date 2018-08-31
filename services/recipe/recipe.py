@@ -14,6 +14,11 @@ def list():
     list_of_recipe = recipe.list_recipe_with_volume_and_nb_product(1)
     return render_template('recipe/index.html', list_of_recipe=list_of_recipe)
 
+@service_recipe.route('/recipe/filter/', methods=['GET'])
+def search():
+    # Retrieve list of recipe
+    list_of_recipe = recipe.search(1, request.args.get('name', ''))
+    return render_template('recipe/index.html', list_of_recipe=list_of_recipe)
 
 @service_recipe.route('/recipe/add', methods=['GET'])
 def new():

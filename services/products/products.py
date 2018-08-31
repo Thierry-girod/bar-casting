@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, request, url_for
 
 from module.configuration import get_config
 from models import product
+from models.persitence.product import ProductType
 
 
 service_products = Blueprint('products', __name__)
@@ -11,6 +12,30 @@ conf = get_config()
 def list_products():
     # Retrieve list of product
     list_of_product = product.find_by(etablishment_id=1)
+    return render_template(
+        'products/index.html',
+        list_of_product=list_of_product,
+        type_1=ProductType.type_1,
+        type_2=ProductType.type_2
+        )
+
+
+@service_products.route('/product/filter/', methods=['GET'])
+def search():
+    liquid = None
+    if request.args.get('liquid') == "solid":
+        liquid = False
+    elif request.args.get('liquid') == "liquid":
+        liquid = True
+
+    # Retrieve list of product depending of query made by the user
+    list_of_product = product.search(
+        1,
+        request.args.get('name'),
+        request.args.getlist('type[]'),
+        liquid
+    )
+    print(list_of_product)
     return render_template('products/index.html', list_of_product=list_of_product)
 
 

@@ -38,3 +38,22 @@ class Recipe(BaseModel, db.Model):
         ).order_by(
             Recipe.name
         ).all()
+
+    @classmethod
+    def search(cls, *args, etablishment_id, name, **kwargs):
+        return db.session.query(
+            Recipe.id.label('id'),
+            Recipe.name.label('name'),
+            db.func.sum(RecipeProduct.quantity).label('quantity'),
+            db.func.count(RecipeProduct.product_id).label('nb_product')
+        ).filter(
+            cls.etablishment_id==etablishment_id,
+            cls.name.like('%{}%'.format(name)),
+            cls.deleted_at==None
+        ).join(
+            RecipeProduct, RecipeProduct.recipe_id == Recipe.id
+        ).group_by(
+            Recipe.id
+        ).order_by(
+            Recipe.name
+        ).all()
