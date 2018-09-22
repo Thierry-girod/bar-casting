@@ -27,3 +27,7 @@ class StockEntry(BaseModel, db.Model):
 
     def __repr__(self):
         return '<Stock Entry: ID : {} - Name : {}>'.format(self.id, self.name)
+
+    @classmethod
+    def find_by(cls, *args, order_by='name', **kwargs):
+        return StockEntry.query.filter_by(**kwargs).order_by(order_by).all()

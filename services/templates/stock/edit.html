@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% block left_pane%}
+<div class="form-group row">
+  <select class="custom-select custom-select-lg mb-3" id="selectProduct">
+    <option selected value="0">Select a product</option>
+    {% for product in list_of_product %}
+      <option value="{{ product.id }}">{{ product.name }}</option>
+    {% endfor %}
+  </select>
+  <button class="btn btn-primary _js_add_product" type="button" clas=>Add product</button>
+</div>
+{% endblock %}
+{% block middle_pane %}
+<form method="POST" action="{{ url_for('stock.save')}}" class="_js_append_product">
+  <input type="hidden" name="etablishment_id" value="{{ etablishment_id }}" />
+  <div class="form-group row">
+    <div class="form-group">
+      <label for="provider_name">Provider</label>
+      <input type="text" class="form-control" name="provider" id="provider_name" placeholder="Provider">
+    </div>
+    <div class="form-group row">
+      <label for="provider_name">Price HT</label>
+      <input type="text" class="form-control" name="amount_ht" id="provider_name" placeholder="HT">
+    </div>
+    <div class="form-group row">
+      <label for="provider_name">Price TTC</label>
+      <input type="text" class="form-control" name="amount_ttc" id="provider_name" placeholder="TTC">
+    </div>
+  </div>
+  <button class="btn btn-primary" type="submit" clas=>add stock entry</button>
+</form>
+
+<div class="form-group _js_template_product" style="display:none">
+  <input type="hidden" name="entry[product_id][]" value="" class="_js_id_product"/>
+  <label class="_js_product_name"></label>
+  <input type="text" class="form-control" name="entry[quantity][]" placeholder="Number of product">
+  <input type="text" class="form-control" name="entry[ht][]" placeholder="HT">
+  <input type="text" class="form-control" name="entry[ttc][]" placeholder="TTC">
+  <span><i class="fa fa-trash fa-2x _js_delete_product"></i></span>
+</div>
+
+
+<script type="text/javascript">
+  $(document).ready(function (){
+    bindAddProduct();
+    bindDeleteProduct();
+  });
+
+  function bindDeleteProduct() {
+    $("._js_delete_product").click(function (event, element) {
+      $(this).parents("div:first").remove();
+    });
+  }
+
+  function bindAddProduct() {
+    $('._js_add_product').click(function () {
+      if ($("#selectProduct").val() == 0) {
+        return false;
+      }
+      var div = $('._js_template_product').clone(true, true);
+      div.removeClass('_js_template_product').addClass('_js_product');
+      div.find("._js_id_product").val($("#selectProduct").val());
+      div.find("._js_product_name").html($("#selectProduct option:selected").html() + " Quantity")
+      div.show()
+      // $("#selectProduct").reset();
+      $('._js_append_product').append(div);
+    });
+  }
+</script>
+{% endblock %}

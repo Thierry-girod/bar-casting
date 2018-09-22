@@ -10,6 +10,7 @@ from models.persitence import db
 from services.homepage.homepage import service_homepage
 from services.products.products import service_products
 from services.recipe.recipe import service_recipe
+from services.stock.stock import service_stock
 
 # db = SQLAlchemy()
 
@@ -34,6 +35,7 @@ def register_blueprints(app):
     app.register_blueprint(service_homepage)
     app.register_blueprint(service_products)
     app.register_blueprint(service_recipe)
+    app.register_blueprint(service_stock)
 
 def create_db_schema(app, db):
     migrate = Migrate(app, db)

@@ -12,7 +12,7 @@ def find_by(etablishment_id, *args, order_by='name', **kwargs):
 
 def search(etablishment_id, name):
     return Recipe.search(
-        etablishment_id=etablishment_id, 
+        etablishment_id=etablishment_id,
         name=name
     )
 
@@ -22,8 +22,7 @@ def list_recipe_with_volume_and_nb_product(etablishment_id, order_by='name'):
 def create(*args, product_quantity, **kwargs):
     recipe = Recipe(**kwargs)
     recipe.save()
-    print(recipe.id)
-
+    
     for product_id, quantity in product_quantity.items():
         reci_prod = RecipeProduct(
             product_id=product_id,
